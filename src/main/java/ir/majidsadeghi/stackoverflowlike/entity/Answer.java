@@ -22,6 +22,9 @@ public class Answer {
 
     private String answerText;
 
+    @Enumerated(EnumType.STRING)
+    private AnswerApproveStatus approveStatus = AnswerApproveStatus.NOT_APPROVED;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

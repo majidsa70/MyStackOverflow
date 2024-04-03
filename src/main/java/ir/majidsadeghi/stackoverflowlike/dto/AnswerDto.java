@@ -1,5 +1,6 @@
 package ir.majidsadeghi.stackoverflowlike.dto;
 
+import ir.majidsadeghi.stackoverflowlike.entity.AnswerApproveStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,7 @@ import java.time.Instant;
 public class AnswerDto {
     private Long id;
     private String answerText;
+    private AnswerApproveStatus approveStatus;
     private UserDto user;
     private Instant createdAt;
 }
