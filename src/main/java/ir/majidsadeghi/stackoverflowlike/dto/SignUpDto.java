@@ -13,7 +13,6 @@ public record SignUpDto(
         @NotBlank
         String password,
 
-        @NotNull
-        long stockAmount
+        String role
 ) {
 }

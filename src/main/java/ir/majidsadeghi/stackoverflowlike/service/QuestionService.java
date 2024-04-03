@@ -1,6 +1,6 @@
 package ir.majidsadeghi.stackoverflowlike.service;
 
-import ir.majidsadeghi.stackoverflowlike.auth.TokenProvider;
+import ir.majidsadeghi.stackoverflowlike.security.TokenProvider;
 import ir.majidsadeghi.stackoverflowlike.dto.CreateAnswerDto;
 import ir.majidsadeghi.stackoverflowlike.dto.CreateQuestionDto;
 import ir.majidsadeghi.stackoverflowlike.dto.QuestionDto;
@@ -75,5 +75,11 @@ public class QuestionService {
 
     private Question findQuestionById(Long id) {
         return questionRepository.findById(id).orElseThrow(() -> new NotFoundException("Question", "id", id.toString()));
+    }
+
+    public Long deleteQuestion(Long id) {
+        val question = findQuestionById(id);
+         questionRepository.delete(question);
+         return question.getId();
     }
 }

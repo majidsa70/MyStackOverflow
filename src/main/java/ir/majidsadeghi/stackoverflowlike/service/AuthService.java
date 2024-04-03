@@ -15,14 +15,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthService implements UserDetailsService {
 
-    @Autowired
-    UserRepository repository;
+
+    private final UserRepository repository;
+
+    public AuthService(UserRepository repository) {
+        this.repository = repository;
+    }
 
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        var user = repository.findByMobile(username);
-        return user;
+        return repository.findByMobile(username);
     }
 
     public void signUp(SignUpDto data) throws JWTVerificationException {
@@ -30,7 +33,7 @@ public class AuthService implements UserDetailsService {
             throw new DuplicateException("Username already exists");
         }
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        User newUser = new User(data.name(), data.mobile(), encryptedPassword, UserRole.USER);
-        User savedUser = repository.save(newUser);
+        User newUser = new User(data.name(), data.mobile(), encryptedPassword, UserRole.valueOf(data.role())); //TODO check role validation in dto
+        repository.save(newUser);
     }
 }

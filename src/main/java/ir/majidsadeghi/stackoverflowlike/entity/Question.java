@@ -27,7 +27,7 @@ public class Question {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "question",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "question",fetch = FetchType.LAZY,cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<Answer> answers;
 
     @CreationTimestamp

@@ -1,7 +1,6 @@
-package ir.majidsadeghi.stackoverflowlike.auth;
+package ir.majidsadeghi.stackoverflowlike.security;
 
 import ir.majidsadeghi.stackoverflowlike.util.AppConstants;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

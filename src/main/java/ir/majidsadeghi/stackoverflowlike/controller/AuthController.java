@@ -1,6 +1,6 @@
 package ir.majidsadeghi.stackoverflowlike.controller;
 
-import ir.majidsadeghi.stackoverflowlike.auth.TokenProvider;
+import ir.majidsadeghi.stackoverflowlike.security.TokenProvider;
 import ir.majidsadeghi.stackoverflowlike.dto.LoginResponseDto;
 import ir.majidsadeghi.stackoverflowlike.dto.SignInDto;
 import ir.majidsadeghi.stackoverflowlike.dto.SignUpDto;

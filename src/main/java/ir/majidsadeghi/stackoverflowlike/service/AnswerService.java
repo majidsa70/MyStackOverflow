@@ -1,6 +1,6 @@
 package ir.majidsadeghi.stackoverflowlike.service;
 
-import ir.majidsadeghi.stackoverflowlike.auth.TokenProvider;
+import ir.majidsadeghi.stackoverflowlike.security.TokenProvider;
 import ir.majidsadeghi.stackoverflowlike.dto.AnswerDto;
 import ir.majidsadeghi.stackoverflowlike.entity.Answer;
 import ir.majidsadeghi.stackoverflowlike.entity.AnswerApproveStatus;
@@ -34,5 +34,9 @@ public class AnswerService {
         answer.setApproveStatus(AnswerApproveStatus.APPROVED);
         Answer updated = answerRepository.save(answer);
         return modelMapper.map(updated, AnswerDto.class);
+    }
+
+    public void deleteAnswer(Long id) {
+        answerRepository.deleteById(id);
     }
 }
