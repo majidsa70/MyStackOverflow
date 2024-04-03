@@ -73,7 +73,7 @@ public class QuestionService {
     }
 
 
-    private Question findQuestionById(Long id) {
+    public Question findQuestionById(Long id) {
         return questionRepository.findById(id).orElseThrow(() -> new NotFoundException("Question", "id", id.toString()));
     }
 

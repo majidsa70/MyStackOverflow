@@ -24,7 +24,7 @@ public class AnswerService {
         this.modelMapper = modelMapper;
     }
 
-    private Answer findById(Long id){
+    public Answer findById(Long id){
         val user = tokenProvider.getUser();
         return answerRepository.findByIdAndUser(id,user).orElseThrow(() -> new NotFoundException("answer","id",id.toString()));
     }
