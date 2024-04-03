@@ -55,6 +55,13 @@ public class QuestionService {
 
         return questions.getContent().stream().map((element) -> modelMapper.map(element, QuestionDto.class)).collect(Collectors.toList());
     }
+    public List<QuestionDto> getAllUserQuestion(int pageNumber, int pageSize) {
+        User user = getUser();
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Page<Question> questions = questionRepository.findAllByUser(pageable, user);
+
+        return questions.getContent().stream().map((element) -> modelMapper.map(element, QuestionDto.class)).collect(Collectors.toList());
+    }
 
     public void saveAnswerQuestion(Long id, CreateAnswerDto dto) {
         Question question = findQuestionById(id);

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(AppConstants.API_PATH + "question")
+@RequestMapping(AppConstants.API_PATH + "questions")
 public class QuestionController {
 
     private final QuestionService questionService;
@@ -38,6 +38,14 @@ public class QuestionController {
             @RequestParam(name = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize
     ){
         return ResponseEntity.ok(new BaseResponse<>(true,questionService.getAllQuestions(pageNumber, pageSize),null));
+    }
+
+    @GetMapping("/my")
+    public ResponseEntity<BaseResponse<List<QuestionDto>>> getAllUserQuestion(
+            @RequestParam(name = "pageNumber", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNumber,
+            @RequestParam(name = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize
+    ){
+        return ResponseEntity.ok(new BaseResponse<>(true,questionService.getAllUserQuestion(pageNumber, pageSize),null));
     }
 
     @PostMapping("/{id}")
