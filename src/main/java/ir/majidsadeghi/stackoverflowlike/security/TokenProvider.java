@@ -20,12 +20,12 @@ public class TokenProvider {
     @Value("${security.jwt.token.secret-key}")
     private String JWT_SECRET;
 
-    public String generateAccessToken(User user) {
+    public String generateAccessToken(String username) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(JWT_SECRET);
             return JWT.create()
-                    .withSubject(user.getUsername())
-                    .withClaim("username", user.getUsername())
+                    .withSubject(username)
+                    .withClaim("username", username)
                    // .withExpiresAt(genAccessExpirationDate())
                     .sign(algorithm);
         } catch (JWTCreationException exception) {
