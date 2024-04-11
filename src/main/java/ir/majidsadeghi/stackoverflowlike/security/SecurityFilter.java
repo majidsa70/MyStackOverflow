@@ -8,20 +8,20 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
 
     private final TokenProvider tokenService;
-    private final UserRepository userRepository;
 
-    public SecurityFilter(TokenProvider tokenService, UserRepository userRepository) {
+    public SecurityFilter(TokenProvider tokenService) {
         this.tokenService = tokenService;
-        this.userRepository = userRepository;
     }
 
     @Override
@@ -29,9 +29,8 @@ public class SecurityFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         var token = this.recoverToken(request);
         if (token != null) {
-            var login = tokenService.validateToken(token);
-            var user = userRepository.findByMobile(login);
-            var authentication = new UsernamePasswordAuthenticationToken(user, null);
+            var username = tokenService.validateToken(token);
+            var authentication = new UsernamePasswordAuthenticationToken(username,"",new ArrayList<>());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         filterChain.doFilter(request, response);

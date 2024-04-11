@@ -1,5 +1,6 @@
 package ir.majidsadeghi.stackoverflowlike.service;
 
+import ir.majidsadeghi.stackoverflowlike.repository.UserRepository;
 import ir.majidsadeghi.stackoverflowlike.security.TokenProvider;
 import ir.majidsadeghi.stackoverflowlike.dto.CreateAnswerDto;
 import ir.majidsadeghi.stackoverflowlike.dto.CreateQuestionDto;
@@ -15,6 +16,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,17 +30,18 @@ public class QuestionService {
 
     private final ModelMapper modelMapper;
 
-    private final TokenProvider tokenProvider;
+    private final UserService userService;
 
-    public QuestionService(QuestionRepository questionRepository, AnswerRepository answerRepository, ModelMapper modelMapper, TokenProvider tokenProvider) {
+    public QuestionService(QuestionRepository questionRepository, AnswerRepository answerRepository, ModelMapper modelMapper, UserService userService) {
         this.questionRepository = questionRepository;
         this.answerRepository = answerRepository;
         this.modelMapper = modelMapper;
-        this.tokenProvider = tokenProvider;
+
+        this.userService = userService;
     }
 
     private User getUser() {
-        return tokenProvider.getUser();
+        return userService.findUser();
     }
 
     public Long createQuestion(CreateQuestionDto dto) {

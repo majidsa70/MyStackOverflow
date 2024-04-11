@@ -40,8 +40,8 @@ public class User{
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.ALL,orphanRemoval = true)
-    private Set<Question> questions;
+   /* @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.ALL,orphanRemoval = true)
+    private Set<Question> questions;*/
 
 
     public User( String name, String mobile, String password,UserRole role) {

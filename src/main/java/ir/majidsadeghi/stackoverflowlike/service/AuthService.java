@@ -6,6 +6,7 @@ import ir.majidsadeghi.stackoverflowlike.entity.User;
 import ir.majidsadeghi.stackoverflowlike.entity.UserRole;
 import ir.majidsadeghi.stackoverflowlike.exceptions.DuplicateException;
 import ir.majidsadeghi.stackoverflowlike.repository.UserRepository;
+import ir.majidsadeghi.stackoverflowlike.security.TokenProvider;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -30,6 +31,7 @@ public class AuthService implements UserDetailsService {
     }
 
     private User findUser(String username){
+
         return repository.findByMobile(username).orElseThrow(() -> new UsernameNotFoundException("User not found with username :" + username));
 
     }

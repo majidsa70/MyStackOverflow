@@ -49,8 +49,7 @@ public class AuthController {
     public ResponseEntity<BaseResponse<LoginResponseDto>> signIn(@RequestBody @Validated SignInDto data) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.mobile(), data.password());
         var authUser = authenticationManager.authenticate(usernamePassword);
-        val userDetails = (org.springframework.security.core.userdetails.User) authUser.getPrincipal();
-        var accessToken = tokenService.generateAccessToken(userDetails.getUsername());
+        var accessToken = tokenService.generateAccessToken(authUser.getName());
         return ResponseEntity.ok(new BaseResponse<>(true, new LoginResponseDto(accessToken), null));
     }
 }

@@ -3,7 +3,6 @@ package ir.majidsadeghi.stackoverflowlike.service;
 import ir.majidsadeghi.stackoverflowlike.dto.CreateReplyDto;
 import ir.majidsadeghi.stackoverflowlike.entity.Reply;
 import ir.majidsadeghi.stackoverflowlike.repository.ReplyRepository;
-import ir.majidsadeghi.stackoverflowlike.security.TokenProvider;
 import lombok.val;
 import org.springframework.stereotype.Service;
 
@@ -14,17 +13,19 @@ public class ReplyService {
     private final QuestionService questionService;
 
     private final AnswerService answerService;
-    private final TokenProvider tokenProvider;
 
-    public ReplyService(ReplyRepository replyRepository, QuestionService questionService, AnswerService answerService, TokenProvider tokenProvider) {
+    private final UserService userService;
+
+    public ReplyService(ReplyRepository replyRepository, QuestionService questionService, AnswerService answerService, UserService userService) {
         this.replyRepository = replyRepository;
         this.questionService = questionService;
         this.answerService = answerService;
-        this.tokenProvider = tokenProvider;
+        this.userService = userService;
+
     }
 
-    public Long createReplyForQuestion(Long questionId,CreateReplyDto dto){
-        val user = tokenProvider.getUser();
+    public Long createReplyForQuestion(Long questionId, CreateReplyDto dto) {
+        val user = userService.findUser();
         val question = questionService.findQuestionById(questionId);
         val reply = new Reply();
         reply.setUser(user);
@@ -34,8 +35,8 @@ public class ReplyService {
         return saved.getId();
     }
 
-    public Long createReplyForAnswer(Long answerId,CreateReplyDto dto){
-        val user = tokenProvider.getUser();
+    public Long createReplyForAnswer(Long answerId, CreateReplyDto dto) {
+        val user = userService.findUser();
         val answer = answerService.findById(answerId);
         val reply = new Reply();
         reply.setUser(user);
