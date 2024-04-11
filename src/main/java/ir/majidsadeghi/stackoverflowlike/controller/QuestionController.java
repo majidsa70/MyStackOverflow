@@ -48,13 +48,4 @@ public class QuestionController {
     ){
         return ResponseEntity.ok(new BaseResponse<>(true,questionService.getAllUserQuestion(pageNumber, pageSize),null));
     }
-
-    @PostMapping("/{id}")
-    public ResponseEntity<BaseResponse<?>> answerQuestion(@PathVariable @NotNull Long id, @RequestBody @Validated CreateAnswerDto dto){
-        questionService.saveAnswerQuestion(id,dto);
-        return new ResponseEntity<>(new BaseResponse<>(true,true,null,"Your answer creation successfully"),HttpStatus.CREATED);
-    }
-
-
-
 }

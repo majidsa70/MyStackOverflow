@@ -1,5 +1,6 @@
 package ir.majidsadeghi.stackoverflowlike.service;
 
+import ir.majidsadeghi.stackoverflowlike.dto.CreateAnswerDto;
 import ir.majidsadeghi.stackoverflowlike.repository.UserRepository;
 import ir.majidsadeghi.stackoverflowlike.security.TokenProvider;
 import ir.majidsadeghi.stackoverflowlike.dto.AnswerDto;
@@ -15,13 +16,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class AnswerService {
     private final AnswerRepository answerRepository;
+    private final QuestionService questionService;
     private final ModelMapper modelMapper;
     private final UserService userService;
 
 
-    public AnswerService(AnswerRepository answerRepository,
+    public AnswerService(AnswerRepository answerRepository, QuestionService questionService,
                          ModelMapper modelMapper, UserService userService) {
         this.answerRepository = answerRepository;
+        this.questionService = questionService;
 
         this.modelMapper = modelMapper;
         this.userService = userService;
@@ -42,5 +45,9 @@ public class AnswerService {
 
     public void deleteAnswer(Long id) {
         answerRepository.deleteById(id);
+    }
+
+    public void saveAnswerQuestion(Long questionId, CreateAnswerDto dto) {
+        questionService.saveAnswerQuestion(questionId,dto);
     }
 }
